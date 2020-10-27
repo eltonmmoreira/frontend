@@ -1,0 +1,15 @@
+<p-sidebar [(visible)]="displayMenu" [showCloseIcon]="false" [modal]="false">
+  <span class="header">Menu</span>
+  <a class="menu-link" [routerLink]="['venda/list']" (click)="displayMenu = false">
+    <mat-icon class="icone-menu-item">person_search</mat-icon>
+    Pesquisa Pessoas
+  </a>
+  <a class="menu-link" [routerLink]="['compra/list']" (click)="displayMenu = false">
+    <mat-icon class="icone-menu-item">person</mat-icon>
+    Pessoa
+  </a>
+  <a class="menu-link">
+    <mat-icon class="icone-menu-item">block</mat-icon>
+    Sair
+  </a>
+</p-sidebar>
