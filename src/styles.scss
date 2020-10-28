@@ -1,1 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #f8f9fa;
+  font-size: 0.8em;
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+  background: #FFF;
+  font-weight: 400;
+  padding: 10px;
+  border-top: none;
+}
+
+body .p-paginator {
+  background-color: #FFF;
+}
+
+.p-card {
+  margin-top: 15px;
+}
+
+body .p-card-title {
+  border-bottom: solid 1px #e0dddd;
+  padding: 20px 0;
+}

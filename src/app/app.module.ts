@@ -12,6 +12,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatIconModule} from '@angular/material/icon';
 import {ButtonModule} from 'primeng/button';
 import {MatButtonModule} from '@angular/material/button';
+import { PessoaFormComponent } from './pessoa/pessoa.form.component';
+import {PessoaModule} from './pessoa/pessoa.module';
+import {HomeModule} from './home/home.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,9 @@ import {MatButtonModule} from '@angular/material/button';
     HttpClientModule,
     MatIconModule,
     MatButtonModule,
-    ButtonModule
+    ButtonModule,
+    HomeModule,
+    PessoaModule
   ],
   providers: [
     MenuService,
