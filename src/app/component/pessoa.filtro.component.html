@@ -1,0 +1,65 @@
+<p-card header="Filtros">
+  <form id="form" #form="ngForm" class="form-components">
+    <div class="row">
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="form-group">
+          <label for="nome" i18n="@@nome">Nome</label>
+          <input [(ngModel)]="filtro.nome"
+                 id="nome"
+                 maxlength="150"
+                 name="nome"
+                 pInputText
+                 type="text"/>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="form-group">
+          <label for="cpf" i18n="@@cpf">CPF</label>
+          <input [(ngModel)]="filtro.cpf"
+                 id="cpf"
+                 maxlength="11"
+                 name="cpf"
+                 pInputText
+                 type="text"/>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="form-group">
+          <label for="email" i18n="@@email">E-mail</label>
+          <input [(ngModel)]="filtro.email"
+                 id="email"
+                 maxlength="400"
+                 name="email"
+                 pInputText
+                 type="text"/>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="form-group">
+          <label for="dataDeNascimento" i18n="@@dataDeNascimento">Data Nasc.</label>
+          <p-calendar [(ngModel)]="filtro.dataDeNascimento"
+                      dataType="string"
+                      dateFormat="dd/mm/yy"
+                      id="dataDeNascimento"
+                      name="dataDeNascimento">
+          </p-calendar>
+        </div>
+      </div>
+    </div>
+  </form>
+  <p-footer>
+    <div class="action-buttons">
+      <button pButton type="button" label="Pesquisar"
+              class="p-button" (click)="pesquisar()">
+      </button>
+
+      <button pButton type="button" label="Limpar"
+              class="p-button-secondary" (click)="limpar()">
+      </button>
+    </div>
+
+  </p-footer>
+</p-card>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {PessoaDto} from './pessoaDto';
 import {PessoaService} from './pessoa.service';
 import {LazyLoadEvent} from 'primeng/api';
@@ -12,7 +12,6 @@ import {PessoaFiltro} from './pessoaFiltro';
   styleUrls: ['./pessoa.list.component.scss']
 })
 export class PessoaListComponent implements OnInit {
-
   filtro: PessoaFiltro;
   pessoas: PessoaDto[];
   totalRecords: number;
@@ -21,7 +20,7 @@ export class PessoaListComponent implements OnInit {
   constructor(private pessoaService: PessoaService) { }
 
   ngOnInit(): void {
-    this.load(null);
+    this.pesquisar(null);
   }
 
   protected find(event: LazyLoadEvent): Observable<Page<PessoaDto>> {
@@ -38,6 +37,11 @@ export class PessoaListComponent implements OnInit {
       this.totalRecords = e.totalElements;
     }, error => {
     }, () => setTimeout(() => this.loading = false));
+  }
+
+  public pesquisar(filtro: PessoaFiltro): void {
+    this.filtro = filtro;
+    this.load(null);
   }
 
   remover(rowData: any, rowIndex: any): void {

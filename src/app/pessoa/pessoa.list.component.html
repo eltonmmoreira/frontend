@@ -1,7 +1,4 @@
-<p-card header="Filtros">
-
-</p-card>
-
+<app-pessoa-filtro (pesquisar)="pesquisar($event)" (limpar)="pesquisar($event)"></app-pessoa-filtro>
 <p-card header="Pessoas">
   <p-table [value]="pessoas"
            [lazy]="true"

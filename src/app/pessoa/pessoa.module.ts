@@ -7,15 +7,25 @@ import {SharedModule} from 'primeng/api';
 import {TableModule} from 'primeng/table';
 import {CardModule} from 'primeng/card';
 import {PessoaService} from './pessoa.service';
+import {FormsModule} from '@angular/forms';
+import {CalendarModule} from 'primeng/calendar';
+import {InputTextModule} from 'primeng/inputtext';
+import {ButtonModule} from 'primeng/button';
+import {PessoaFiltroModule} from '../component/pessoa.filtro.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule,
-    SharedModule,
-    TableModule,
-    CardModule
-  ],
+    imports: [
+      CommonModule,
+      RouterModule,
+      SharedModule,
+      TableModule,
+      CardModule,
+      FormsModule,
+      CalendarModule,
+      InputTextModule,
+      ButtonModule,
+      PessoaFiltroModule
+    ],
   declarations: [
     PessoaFormComponent,
     PessoaListComponent

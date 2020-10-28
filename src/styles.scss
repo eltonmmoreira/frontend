@@ -1,3 +1,5 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
 html, body {
   margin: 0;
   padding: 0;
@@ -25,3 +27,16 @@ body .p-card-title {
   border-bottom: solid 1px #e0dddd;
   padding: 20px 0;
 }
+
+.form-components .p-inputtext,
+.form-components .p-dropdown,
+.form-components .p-calendar,
+.form-components .p-spinner,
+.form-components .p-autocomplete {
+  width: 100%;
+}
+
+.action-buttons .p-button {
+  margin-right: 5px;
+}
+
