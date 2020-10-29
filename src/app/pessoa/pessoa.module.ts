@@ -12,6 +12,8 @@ import {CalendarModule} from 'primeng/calendar';
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import {PessoaFiltroModule} from '../component/pessoa.filtro.module';
+import {ToastModule} from 'primeng/toast';
+import {FileUploadModule} from 'primeng/fileupload';
 
 @NgModule({
     imports: [
@@ -24,7 +26,9 @@ import {PessoaFiltroModule} from '../component/pessoa.filtro.module';
       CalendarModule,
       InputTextModule,
       ButtonModule,
-      PessoaFiltroModule
+      PessoaFiltroModule,
+      ToastModule,
+      FileUploadModule
     ],
   declarations: [
     PessoaFormComponent,

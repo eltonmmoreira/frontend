@@ -11,22 +11,12 @@ export abstract class CrudService<T, ID> {
     return this.url;
   }
 
-  findAll(): Observable<T[]> {
-    const url = `${this.getUrl()}`;
-    return this.http.get<T[]>(url);
-  }
-
   findPageable(page: number, size: number, filtro?: any): Observable<Page<T>> {
     page = parseInt('' + page);
     let url = `${this.getUrl()}/list?page=${page}&size=${size}`;
     url = encodeURI(url);
 
     return this.http.post<Page<T>>(url, (JSON.stringify(filtro) === "{}") ? null : filtro);
-  }
-
-  complete(query: string): Observable<T[]> {
-    const url = `${this.getUrl()}/complete?query=${query}`;
-    return this.http.get<T[]>(url);
   }
 
   findOne(id: ID): Observable<T> {
@@ -50,11 +40,6 @@ export abstract class CrudService<T, ID> {
   delete(id: ID): Observable<void> {
     const url = `${this.getUrl()}/${id}`;
     return this.http.delete<void>(url);
-  }
-
-  inativar(id: ID): Observable<void> {
-    const url = `${this.getUrl()}/inativar/${id}`;
-    return this.http.post<void>(url, null);
   }
 
 }
