@@ -13,13 +13,14 @@ import {environment} from '../../environments/environment';
 export class PessoaFormComponent implements OnInit {
 
   pessoa: Pessoa;
-  urlUpload = `${environment.url}/pessoa/upload/`;
-
+  urlUpload: string;
   constructor(private pessoaService: PessoaService,
               private route: ActivatedRoute,
-              private messageService: MessageService) { }
+              private messageService: MessageService) {
+  }
 
   ngOnInit(): void {
+    this.urlUpload = `${environment.url}/file/upload/pessoa/`;
     this.init();
   }
 
@@ -28,7 +29,7 @@ export class PessoaFormComponent implements OnInit {
   }
 
   private init(): void {
-    this.route.params.subscribe( params => {
+    this.route.params.subscribe(params => {
       if (params && params.id) {
         this.editar(params.id);
       } else {
@@ -52,8 +53,13 @@ export class PessoaFormComponent implements OnInit {
   }
 
   onUpload(event): void {
-    console.log(event);
-
+    this.pessoaService.findImage(this.pessoa.id)
+      .subscribe(image => {
+        if (image) {
+          this.pessoa.image = image;
+        }
+      });
     this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
   }
+
 }

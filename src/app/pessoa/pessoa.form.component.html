@@ -7,7 +7,7 @@
 
       <div class="col-12" *ngIf="pessoa?.id">
         <div class="form-group">
-          <img src="https://lh3.googleusercontent.com/proxy/oYQ02UUTdRjZQ-disxFW5EF7pi9sUy9UhNyhOFd42OJt1Dgkw6JkyR4nHNBOmFUVSa4E9Y0C90bme8m6xUT-vZm4qB_JuHPnnCd4zZQSWFG1Ltf0kp7StyfhRzMXi5178m0Ug_9oayqBoCaPS9qWL0p733tcZLw">
+          <img [src]="pessoa?.image ? pessoa.image : '/assets/avatar.jpg'">
 
           <p-fileUpload mode="basic"
                         name="image"
