@@ -7,7 +7,7 @@
 
       <div class="col-12" *ngIf="pessoa?.id">
         <div class="form-group">
-          <img [src]="pessoa?.image ? pessoa.image : '/assets/avatar.jpg'">
+          <img [src]="pessoa?.image ? pessoa.image : '/assets/avatar.jpg'" alt="imagem">
 
           <p-fileUpload mode="basic"
                         name="image"
@@ -15,6 +15,7 @@
                         accept="image/*"
                         maxFileSize="1000000"
                         (onUpload)="onUpload($event)"
+                        (onError)="onError($event)"
                         [auto]="true">
           </p-fileUpload>
         </div>

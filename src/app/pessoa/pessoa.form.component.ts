@@ -4,6 +4,7 @@ import {PessoaService} from './pessoa.service';
 import {MessageService} from 'primeng/api';
 import {ActivatedRoute} from '@angular/router';
 import {environment} from '../../environments/environment';
+import {finalize} from 'rxjs/operators';
 
 @Component({
   selector: 'app-pessoa-form',
@@ -29,27 +30,28 @@ export class PessoaFormComponent implements OnInit {
   }
 
   private init(): void {
+    this.novo();
     this.route.params.subscribe(params => {
       if (params && params.id) {
         this.editar(params.id);
-      } else {
-        this.novo();
       }
     });
   }
 
   private editar(id: number): void {
-    this.pessoaService.findOne(id).subscribe(pessoa => {
-      this.pessoa = pessoa;
-      this.urlUpload += this.pessoa.id;
-    });
+    this.pessoaService.findOne(id)
+      .subscribe(pessoa => {
+        this.pessoa = pessoa;
+        this.urlUpload += this.pessoa.id;
+        });
   }
 
   public salvar(): void {
     this.pessoaService.save(this.pessoa)
-      .subscribe(pessoa => this.pessoa = pessoa,
-        error => this.messageService.add({severity: 'error', detail: error.message}),
-        () => this.messageService.add({severity: 'success', detail: 'Registro salvo com sucesso!'}));
+      .subscribe(pessoa => {
+          this.pessoa = pessoa;
+          this.messageService.add({severity: 'success', detail: 'Registro salvo com sucesso!'});
+        });
   }
 
   onUpload(event): void {
@@ -59,7 +61,11 @@ export class PessoaFormComponent implements OnInit {
           this.pessoa.image = image;
         }
       });
-    this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
+    this.messageService.add({severity: 'info', summary: 'Imagem atualizada com sucesso!', detail: ''});
+  }
+
+  onError(event): void {
+    this.messageService.add({severity: 'error', summary: 'File Uploaded', detail: event});
   }
 
 }

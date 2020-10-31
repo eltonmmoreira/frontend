@@ -24,17 +24,17 @@ export abstract class CrudService<T, ID> {
     return this.http.get<T>(url);
   }
 
-  save(t: T): Observable<T> {
-    this.preSave(t);
+  save(entity: T): Observable<T> {
+    this.preSave(entity);
     const url = `${this.getUrl()}`;
-    if (t['id']) {
-      return this.http.put<T>(url, t);
+    if (entity['id']) {
+      return this.http.put<T>(url, entity);
     }
 
-    return this.http.post<T>(url, t);
+    return this.http.post<T>(url, entity);
   }
 
-  preSave(t: T): void {
+  preSave(entity: T): void {
   }
 
   delete(id: ID): Observable<void> {
