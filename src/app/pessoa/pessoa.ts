@@ -4,5 +4,6 @@ export class Pessoa {
   cpf: string;
   email: string;
   dataDeNascimento: Date;
+  temImagem: boolean;
   image: string;
 }

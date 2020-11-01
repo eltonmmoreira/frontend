@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Pessoa} from './pessoa';
 import {PessoaService} from './pessoa.service';
 import {MessageService} from 'primeng/api';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Location} from '@angular/common';
 import {environment} from '../../environments/environment';
-import {finalize} from 'rxjs/operators';
+import {UrlUtil} from '../util/urlUtil';
 
 @Component({
   selector: 'app-pessoa-form',
@@ -13,45 +14,63 @@ import {finalize} from 'rxjs/operators';
 })
 export class PessoaFormComponent implements OnInit {
 
-  pessoa: Pessoa;
+  pessoa: Pessoa = new Pessoa();
   urlUpload: string;
+  baseUrl = `${environment.url}/file/upload/pessoa/`;
+
   constructor(private pessoaService: PessoaService,
-              private route: ActivatedRoute,
+              private activatedRoute: ActivatedRoute,
+              private router: Router,
+              private location: Location,
               private messageService: MessageService) {
   }
 
   ngOnInit(): void {
-    this.urlUpload = `${environment.url}/file/upload/pessoa/`;
     this.init();
   }
 
-  public novo(): void {
+  novo(): void {
     this.pessoa = new Pessoa();
+    const url = UrlUtil.urlContainsForm(this.router.url)
+      ? UrlUtil.getAtForm(this.router.url)
+      : this.router.url;
+    this.location.go(url);
   }
 
-  private init(): void {
-    this.novo();
-    this.route.params.subscribe(params => {
+  init(): void {
+    this.activatedRoute.params.subscribe(params => {
       if (params && params.id) {
         this.editar(params.id);
+      } else {
+        this.novo();
       }
     });
   }
 
-  private editar(id: number): void {
+  editar(id: number): void {
     this.pessoaService.findOne(id)
       .subscribe(pessoa => {
         this.pessoa = pessoa;
-        this.urlUpload += this.pessoa.id;
-        });
+        this.atualizarUrlUpload();
+      });
   }
 
-  public salvar(): void {
+  atualizarUrlUpload(): void {
+    this.urlUpload = this.baseUrl + this.pessoa.id;
+  }
+
+  salvar(): void {
     this.pessoaService.save(this.pessoa)
       .subscribe(pessoa => {
-          this.pessoa = pessoa;
-          this.messageService.add({severity: 'success', detail: 'Registro salvo com sucesso!'});
-        });
+        const id = this.pessoa.id;
+        this.pessoa = pessoa;
+        this.messageService.add({severity: 'success', detail: 'Registro salvo com sucesso!'});
+
+        if (!id) {
+          this.atualizarUrlUpload();
+          this.location.go(this.router.url + '/' + this.pessoa.id);
+        }
+      });
   }
 
   onUpload(event): void {
@@ -59,6 +78,7 @@ export class PessoaFormComponent implements OnInit {
       .subscribe(image => {
         if (image) {
           this.pessoa.image = image;
+          this.pessoa.temImagem = true;
         }
       });
     this.messageService.add({severity: 'info', summary: 'Imagem atualizada com sucesso!', detail: ''});
