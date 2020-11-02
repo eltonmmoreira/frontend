@@ -13,7 +13,9 @@
                         name="image"
                         chooseLabel="Selecionar Foto"
                         [url]="urlUpload"
-                        accept="image/*"
+                        invalidFileSizeMessageSummary="{0}: Tamanho do arquivo inválido"
+                        invalidFileSizeMessageDetail="Máximo permitido de: {0} "
+                        accept=".jpg,.png,.jpeg,.bmp"
                         maxFileSize="1000000"
                         (onUpload)="onUpload($event)"
                         (onError)="onError($event)"
@@ -26,11 +28,15 @@
         <div class="form-group">
           <label for="nome" i18n="@@nome">Nome</label>
           <input [(ngModel)]="pessoa.nome"
+                 #nome="ngModel"
                  id="nome"
                  maxlength="150"
                  name="nome"
                  pInputText
+                 required
+                 aria-describedby="username-help"
                  type="text"/>
+          <small *ngIf="nome.invalid && (nome.dirty || nome.touched)" id="username-help" class="p-invalid">Nome não informado.</small>
         </div>
       </div>
 
@@ -38,12 +44,16 @@
         <div class="form-group">
           <label for="cpf" i18n="@@cpf">CPF</label>
           <input [(ngModel)]="pessoa.cpf"
+                 #cpf="ngModel"
                  id="cpf"
                  maxlength="11"
                  name="cpf"
                  pInputText
                  formatCpf
+                 required
+                 aria-describedby="cpf-help"
                  type="text"/>
+          <small *ngIf="cpf.invalid && (cpf.dirty || cpf.touched)" id="cpf-help" class="p-invalid">CPF não informado.</small>
         </div>
       </div>
 
@@ -51,10 +61,14 @@
         <div class="form-group">
           <label for="email" i18n="@@email">E-mail</label>
           <input [(ngModel)]="pessoa.email"
+                 #email="ngModel"
                  id="email"
                  maxlength="400"
                  name="email"
+                 required
+                 aria-describedby="email-help"
                  pInputText/>
+          <small *ngIf="email.invalid && (email.dirty || email.touched)" id="email-help" class="p-invalid">E-mail não informado.</small>
         </div>
       </div>
 
@@ -62,11 +76,14 @@
         <div class="form-group">
           <label for="dataDeNascimento" i18n="@@dataDeNascimento">Data Nasc.</label>
           <p-calendar [(ngModel)]="pessoa.dataDeNascimento"
+                      #dataDeNascimento="ngModel"
+                      required
                       dataType="string"
                       dateFormat="dd/mm/yy"
                       id="dataDeNascimento"
                       name="dataDeNascimento">
           </p-calendar>
+          <small *ngIf="dataDeNascimento.invalid && (dataDeNascimento.dirty || dataDeNascimento.touched)" id="dataDeNascimento-help" class="p-invalid">Data de nascimento não informado.</small>
         </div>
       </div>
     </div>
