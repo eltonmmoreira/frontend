@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {PessoaDto} from './pessoaDto';
 import {PessoaService} from './pessoa.service';
-import {LazyLoadEvent} from 'primeng/api';
+import {ConfirmationService, LazyLoadEvent} from 'primeng/api';
 import {Observable} from 'rxjs';
 import {Page} from '../core/page';
 import {PessoaFiltro} from './pessoaFiltro';
@@ -17,20 +17,21 @@ export class PessoaListComponent implements OnInit {
   totalRecords: number;
   loading = false;
 
-  constructor(private pessoaService: PessoaService) { }
+  constructor(private pessoaService: PessoaService,
+              private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
     this.pesquisar(null);
   }
 
-  protected find(event: LazyLoadEvent): Observable<Page<PessoaDto>> {
+  find(event: LazyLoadEvent): Observable<Page<PessoaDto>> {
     const rows = event ? event.rows : 10;
     const first = event ? event.first : 0;
     return this.pessoaService
       .findPageable(first / rows, rows, this.filtro);
   }
 
-  public load(event: LazyLoadEvent): void {
+  load(event: LazyLoadEvent): void {
     setTimeout(() => this.loading = true);
     this.find(event).subscribe(e => {
       this.pessoas = e.content;
@@ -39,12 +40,21 @@ export class PessoaListComponent implements OnInit {
     }, () => setTimeout(() => this.loading = false));
   }
 
-  public pesquisar(filtro: PessoaFiltro): void {
+  pesquisar(filtro: PessoaFiltro): void {
     this.filtro = filtro;
     this.load(null);
   }
 
-  remover(rowData: any, rowIndex: any): void {
-
+  remover(pessoa: PessoaDto, index: number): void {
+    this.confirmationService.confirm({
+      acceptLabel: 'Sim',
+      rejectLabel: 'Não',
+      header: 'Confirmação',
+      message: `Deseja remover a pessoa ${pessoa.nome}?`,
+      accept: () => {
+        this.pessoaService.delete(pessoa.id).subscribe();
+        this.pessoas.splice(index, 1);
+      }
+    });
   }
 }

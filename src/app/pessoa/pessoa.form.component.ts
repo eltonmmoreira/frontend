@@ -68,7 +68,7 @@ export class PessoaFormComponent implements OnInit {
 
         if (!id) {
           this.atualizarUrlUpload();
-          this.location.go(this.router.url + '/' + this.pessoa.id);
+          this.location.go(UrlUtil.getAtForm(this.router.url) + '/' + this.pessoa.id);
         }
       });
   }
