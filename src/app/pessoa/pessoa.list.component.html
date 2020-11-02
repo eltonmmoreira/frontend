@@ -11,20 +11,17 @@
            [loading]="loading">
     <ng-template pTemplate="header" let-columns>
       <tr>
-        <th pSortableColumn="nome">
+        <th>
           <span>Nome</span>
-          <p-sortIcon field="nome"></p-sortIcon>
-        </th>
-        <th pSortableColumn="cpf">
-          <span>CPF</span>
-          <p-sortIcon field="cpf"></p-sortIcon>
         </th>
         <th>
+          <span>CPF</span>
+        </th>
+        <th style="word-break: break-word;">
           <span>E-mail</span>
         </th>
-        <th pSortableColumn="dataDeNascimento">
+        <th>
           <span>Data Nasc.</span>
-          <p-sortIcon field="dataDeNascimento"></p-sortIcon>
         </th>
         <th style="width: 100px">
         </th>
@@ -38,7 +35,7 @@
         <td>
           {{rowData.cpf | cpf}}
         </td>
-        <td>
+        <td style="word-break: break-word;">
           {{rowData.email}}
         </td>
         <td>

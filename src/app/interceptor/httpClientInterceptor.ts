@@ -13,15 +13,12 @@ export class HttpClientInterceptor implements HttpClientInterceptor {
     return next.handle(request)
       .pipe(
         retry(1),
-        catchError((error: HttpErrorResponse) => {
+        catchError((error: any) => {
           let errorMessage = '';
           if (error.error instanceof ErrorEvent) {
             errorMessage = `Error: ${error.error.message}`;
-          } else if (error.error && error.error.messageValidation) {
-            const messages = Object['values'](error.error.messageValidation);
-            for (const message of messages) {
-              this.messageService.add({severity: 'error', detail: message.toString()});
-            }
+          } else if (error?.error?.type) {
+            this.tratarException(error);
             return;
           } else {
             if (error.error.message) {
@@ -34,5 +31,17 @@ export class HttpClientInterceptor implements HttpClientInterceptor {
           return throwError(errorMessage);
         })
       );
+  }
+
+  private tratarException(error: any): void {
+    const type = error.error.type;
+    if (type === 'MethodArgumentNotValidException') {
+      const messages = Object.values(error?.error?.parameters);
+      for (const message of messages) {
+        this.messageService.add({severity: 'error', detail: message.toString()});
+      }
+    } else {
+      this.messageService.add({severity: 'error', detail: error?.error?.message});
+    }
   }
 }
