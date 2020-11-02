@@ -14,6 +14,8 @@ import {ButtonModule} from 'primeng/button';
 import {PessoaFiltroModule} from '../component/pessoa.filtro.module';
 import {ToastModule} from 'primeng/toast';
 import {FileUploadModule} from 'primeng/fileupload';
+import {CpfFormatModule} from '../shared/directive/cpfFormatModule';
+import {cpfPipe} from '../shared/pipes/cpfPipe';
 
 @NgModule({
     imports: [
@@ -28,11 +30,13 @@ import {FileUploadModule} from 'primeng/fileupload';
       ButtonModule,
       PessoaFiltroModule,
       ToastModule,
-      FileUploadModule
+      FileUploadModule,
+      CpfFormatModule,
     ],
   declarations: [
     PessoaFormComponent,
-    PessoaListComponent
+    PessoaListComponent,
+    cpfPipe
   ],
   exports: [
     PessoaFormComponent,

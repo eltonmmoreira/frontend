@@ -7,17 +7,19 @@ import {CalendarModule} from 'primeng/calendar';
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import {PessoaFiltroComponent} from './pessoa.filtro.component';
+import {CpfFormatModule} from '../shared/directive/cpfFormatModule';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    CardModule,
-    FormsModule,
-    CalendarModule,
-    InputTextModule,
-    ButtonModule
-  ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        CardModule,
+        FormsModule,
+        CalendarModule,
+        InputTextModule,
+        ButtonModule,
+        CpfFormatModule
+    ],
   declarations: [
     PessoaFiltroComponent
   ],

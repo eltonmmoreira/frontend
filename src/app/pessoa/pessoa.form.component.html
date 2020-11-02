@@ -2,7 +2,7 @@
   <form id="form" #form="ngForm" class="form-components">
     <div class="row">
       <div class="col-12">
-        <p-toast></p-toast>
+        <p-toast ></p-toast>
       </div>
 
       <div class="col-12" *ngIf="pessoa?.id">
@@ -42,6 +42,7 @@
                  maxlength="11"
                  name="cpf"
                  pInputText
+                 formatCpf
                  type="text"/>
         </div>
       </div>

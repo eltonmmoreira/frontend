@@ -17,10 +17,20 @@ export class HttpClientInterceptor implements HttpClientInterceptor {
           let errorMessage = '';
           if (error.error instanceof ErrorEvent) {
             errorMessage = `Error: ${error.error.message}`;
+          } else if (error.error && error.error.messageValidation) {
+            const messages = Object['values'](error.error.messageValidation);
+            for (const message of messages) {
+              this.messageService.add({severity: 'error', detail: message.toString()});
+            }
+            return;
           } else {
-            errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+            if (error.error.message) {
+              errorMessage = `${error.error.message}`;
+            } else {
+              errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+            }
           }
-          this.messageService.add({severity: 'error', detail: error.message});
+          this.messageService.add({severity: 'error', detail: errorMessage});
           return throwError(errorMessage);
         })
       );
