@@ -8,6 +8,7 @@ import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import {PessoaFiltroComponent} from './pessoa.filtro.component';
 import {CpfFormatModule} from '../shared/directive/cpfFormatModule';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
     imports: [
@@ -18,7 +19,8 @@ import {CpfFormatModule} from '../shared/directive/cpfFormatModule';
         CalendarModule,
         InputTextModule,
         ButtonModule,
-        CpfFormatModule
+        CpfFormatModule,
+        RouterModule
     ],
   declarations: [
     PessoaFiltroComponent

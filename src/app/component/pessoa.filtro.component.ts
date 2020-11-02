@@ -14,11 +14,11 @@ export class PessoaFiltroComponent {
     this.filtro = new PessoaFiltro();
   }
 
-  public pesquisar(): void {
+  pesquisar(): void {
     this.pesquisarEvent.emit(this.filtro);
   }
 
-  public limpar(): void {
+  limpar(): void {
     this.filtro = new PessoaFiltro();
     this.limparEvent.emit(null);
   }
