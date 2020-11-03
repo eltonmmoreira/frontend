@@ -6,8 +6,6 @@ import {HomeComponent} from './home/home.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  //{path: 'fiscal', loadChildren: () => import('./fiscal/fiscal.module').then(m => m.FiscalModule)},
-
   {path: 'pessoa/list', component: PessoaListComponent},
   {path: 'pessoa/form', component: PessoaFormComponent},
   {path: 'pessoa/form/:id', component: PessoaFormComponent},
